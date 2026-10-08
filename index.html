@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#775a19" />
+  <meta name="description" content="Sarh-Ut-Taqwa — Online Islamic Learning Platform for Muslim Women & Girls" />
+  <title>Sarh-Ut-Taqwa | Islamic Learning Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Serif:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,350,0,0" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f9f9f7;
+      --surface:#ffffff;
+      --surface-2:#f4f4f2;
+      --surface-3:#eeeeec;
+      --surface-4:#e8e8e6;
+      --ink:#1a1c1b;
+      --muted:#5c5e64;
+      --line:#ddd8cd;
+      --gold:#775a19;
+      --gold-2:#c5a059;
+      --gold-3:#e9c176;
+      --gold-4:#ffdea5;
+      --gold-5:#fff3d5;
+      --green:#157347;
+      --green-soft:#dff4e7;
+      --red:#b42318;
+      --red-soft:#ffebe8;
+      --navy:#2f3130;
+      --shadow:0 14px 36px rgba(36,39,44,.07);
+      --shadow-sm:0 5px 18px rgba(36,39,44,.06);
+      --radius:18px;
+      --radius-sm:12px;
+      --max:1220px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Manrope,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      min-height:100vh;
+    }
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .icon{font-family:"Material Symbols Outlined";font-weight:normal;font-style:normal;font-size:22px;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;font-feature-settings:'liga';}
+    .serif{font-family:"Noto Serif",serif}
+
+    .hidden{display:none!important}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .label{font-size:11px;line-height:16px;letter-spacing:.08em;font-weight:800;text-transform:uppercase}
+    .rtl{direction:rtl}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:0 auto}
+
+    /* ---------- Login ---------- */
+    #loginScreen{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:28px 16px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 8%, rgba(197,160,89,.20), transparent 28%),
+        radial-gradient(circle at 0% 100%, rgba(119,90,25,.22), transparent 30%),
+        linear-gradient(160deg,#2f3130,#171918 72%);
+      color:#fff;
+    }
+    #loginScreen::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:.18;
+      background-image:
+        linear-gradient(30deg,transparent 46%,rgba(233,193,118,.3) 47%,rgba(233,193,118,.3) 49%,transparent 50%),
+        linear-gradient(150deg,transparent 46%,rgba(233,193,118,.22) 47%,rgba(233,193,118,.22) 49%,transparent 50%);
+      background-size:64px 64px;
+      mask-image:linear-gradient(to bottom,black,transparent);
+      pointer-events:none;
+    }
+    .login-shell{
+      width:min(520px,100%);
+      position:relative;
+      z-index:1;
+    }
+    .login-brand{text-align:center;margin-bottom:22px}
+    .sanctum-pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 14px;border:1px solid rgba(255,222,165,.25);
+      border-radius:999px;background:rgba(255,255,255,.07);
+      backdrop-filter:blur(10px);color:var(--gold-3);font-size:11px;
+      text-transform:uppercase;letter-spacing:.08em;font-weight:800;
+    }
+    .emblem{
+      width:116px;height:116px;border-radius:50%;padding:4px;margin:18px auto;
+      background:conic-gradient(from 220deg,var(--gold-4),var(--gold),var(--gold-2),var(--gold-3),var(--gold-4));
+      box-shadow:0 22px 55px rgba(0,0,0,.30),0 0 0 8px rgba(197,160,89,.06);
+    }
+    .emblem-inner{
+      width:100%;height:100%;border-radius:50%;overflow:hidden;
+      background:#202221;border:1px solid rgba(255,255,255,.08);
+    }
+    .emblem-inner img{width:100%;height:100%;object-fit:cover}
+    .login-brand h1{margin:0;color:var(--gold-3);font-size:30px;letter-spacing:.05em}
+    .login-brand .arabic{margin:5px 0;color:var(--gold-2);font-size:23px}
+    .login-brand p{margin:0 auto;max-width:390px;color:#c9c7c0;font-size:13px;line-height:1.55}
+
+    .role-tabs{
+      display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;
+      margin:24px 0 14px;border-radius:14px;background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .role-tab{
+      border:0;border-radius:10px;padding:12px 10px;background:transparent;color:#c9c7c0;
+      display:flex;align-items:center;justify-content:center;gap:7px;font-weight:800;
+      transition:.2s;
+    }
+    .role-tab.active{background:var(--gold-2);color:#2a210f;box-shadow:0 6px 18px rgba(197,160,89,.20)}
+    .login-card{
+      background:rgba(255,255,255,.97);color:var(--ink);
+      border-radius:18px;padding:24px;box-shadow:0 26px 80px rgba(0,0,0,.26);
+    }
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:18px}
+    .card-head h2{margin:5px 0 0;font-size:22px}
+    .section-eyebrow{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+    .head-icon{
+      width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+      background:var(--surface-2);color:var(--gold);flex:0 0 auto;
+    }
+    .form-group{margin-bottom:15px}
+    .form-label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:13px;font-weight:700;color:#4e4639}
+    .input-wrap{position:relative}
+    .input-wrap > .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#77736b;font-size:19px}
+    .input,.select,.textarea{
+      width:100%;border:1px solid #dfddd7;background:var(--surface-2);
+      padding:12px 13px 12px 40px;border-radius:10px;outline:0;color:var(--ink);
+      transition:.2s;
+    }
+    .input:focus,.select:focus,.textarea:focus{border-color:var(--gold-2);background:#fff;box-shadow:0 0 0 4px rgba(197,160,89,.12)}
+    .password-toggle{
+      position:absolute;right:8px;top:50%;transform:translateY(-50%);
+      border:0;background:transparent;color:#6b6963;padding:7px;
+    }
+    .btn{
+      border:0;min-height:44px;border-radius:10px;padding:11px 15px;display:inline-flex;
+      align-items:center;justify-content:center;gap:8px;font-weight:800;transition:.2s;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:scale(.99)}
+    .btn-primary{background:var(--gold-2);color:#2b220f;box-shadow:0 10px 22px rgba(197,160,89,.20)}
+    .btn-dark{background:var(--navy);color:#fff}
+    .btn-soft{background:var(--surface-2);color:var(--ink)}
+    .btn-danger{background:var(--red-soft);color:var(--red)}
+    .btn-green{background:var(--green-soft);color:var(--green)}
+    .btn-block{width:100%}
+    .login-note{
+      padding:11px 12px;border-radius:10px;background:var(--surface-2);color:#6a675f;
+      font-size:12px;line-height:1.5;display:flex;align-items:flex-start;gap:8px;margin-top:12px;
+    }
+    .login-links{display:grid;gap:8px;margin-top:12px}
+    .login-link{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:11px 12px;border-radius:10px;background:var(--surface-2);color:#4e4639;
+      font-size:13px;font-weight:700;
+    }
+    .login-ai{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      margin-top:14px;padding:12px;border-radius:14px;background:rgba(255,255,255,.07);
+      color:#fff;border:1px solid rgba(255,255,255,.08)
+    }
+    .login-ai .ai-avatar{width:40px;height:40px;border-radius:50%;background:var(--gold-4);color:#2d2109;display:grid;place-items:center}
+    .login-footer{margin-top:16px;text-align:center;color:#a9a69f;font-size:11px}
+
+    /* ---------- App shell ---------- */
+    #appScreen{display:none;min-height:100vh}
+    body.app-mode #loginScreen{display:none}
+    body.app-mode #appScreen{display:block}
+    .app-layout{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+    .sidebar{
+      position:sticky;top:0;height:100vh;border-right:1px solid var(--line);
+      background:rgba(255,255,255,.90);backdrop-filter:blur(18px);padding:20px 16px;
+      display:flex;flex-direction:column;z-index:30;
+    }
+    .brand-mini{display:flex;align-items:center;gap:10px;padding:6px 8px 18px}
+    .brand-mini .logo{
+      width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--navy);
+      border:2px solid var(--gold-2);flex:0 0 auto;
+    }
+    .brand-mini img{width:100%;height:100%;object-fit:cover}
+    .brand-mini strong{font-family:"Noto Serif";font-size:16px}
+    .brand-mini span{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-top:2px}
+    .side-nav{display:grid;gap:6px}
+    .side-btn{
+      width:100%;border:0;background:transparent;color:#66635d;padding:11px 12px;border-radius:10px;
+      display:flex;align-items:center;gap:10px;text-align:left;font-weight:800;
+    }
+    .side-btn:hover{background:var(--surface-2);color:var(--ink)}
+    .side-btn.active{background:#f7efdc;color:var(--gold)}
+    .sidebar-spacer{flex:1}
+    .account-card{padding:12px;border-radius:14px;background:var(--surface-2);margin-bottom:12px}
+    .account-card .status{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(21,115,71,.10)}
+    .main-shell{min-width:0}
+    .topbar{
+      position:sticky;top:0;z-index:20;height:70px;padding:0 24px;border-bottom:1px solid var(--line);
+      background:rgba(249,249,247,.88);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;gap:16px;
+    }
+    .page-title{display:flex;align-items:center;gap:10px;min-width:0}
+    .page-title .crumb{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);font-weight:800}
+    .page-title strong{display:block;font-family:"Noto Serif";font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .icon-btn{
+      width:40px;height:40px;border:0;background:transparent;color:#5e5b55;border-radius:10px;
+      display:grid;place-items:center
+    }
+    .icon-btn:hover{background:var(--surface-3);color:var(--gold)}
+    .user-chip{display:flex;align-items:center;gap:8px;padding:5px 9px 5px 6px;border-radius:999px;background:var(--surface-2)}
+    .user-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#fff;font-size:14px;font-weight:800}
+    .user-chip strong{font-size:12px}
+    .page{padding:24px 24px 42px}
+    .page-inner{width:min(1140px,100%);margin:0 auto}
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{
+      background:var(--surface);border:1px solid rgba(221,216,205,.8);border-radius:var(--radius);
+      box-shadow:var(--shadow-sm)
+    }
+    .card.pad{padding:18px}
+    .hero-welcome{
+      padding:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px
+    }
+    .welcome-left{display:flex;align-items:center;gap:14px;min-width:0}
+    .welcome-logo{width:52px;height:52px;border-radius:50%;overflow:hidden;background:var(--surface-3);flex:0 0 auto}
+    .welcome-logo img{width:100%;height:100%;object-fit:cover}
+    .welcome-copy h1{margin:0;font-size:22px}
+    .welcome-copy p{margin:3px 0 0;color:var(--muted);font-size:13px}
+    .badge{
+      display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border-radius:999px;
+      background:var(--surface-2);color:var(--gold);font-size:11px;font-weight:800;white-space:nowrap
+    }
+    .ayah{
+      margin-top:14px;padding:13px 14px;border-radius:12px;background:var(--surface-2);
+      display:flex;align-items:center;justify-content:space-between;gap:12px
+    }
+    .ayah-title{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+    .ayah-ar{font-family:"Noto Serif";font-size:22px;line-height:1.9}
+    .ayah-en{font-size:12px;color:#56524a;font-style:italic}
+    .live-card{
+      color:#fff;overflow:hidden;position:relative;padding:20px;
+      background:
+        radial-gradient(circle at 90% 0,rgba(255,255,255,.15),transparent 34%),
+        linear-gradient(135deg,#9d7b2e,#775a19 58%,#54420f);
+    }
+    .live-card::after{
+      content:"";position:absolute;right:-55px;bottom:-55px;width:180px;height:180px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.09);box-shadow:0 0 0 20px rgba(255,255,255,.03),0 0 0 40px rgba(255,255,255,.02)
+    }
+    .live-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .live-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+    .pulse{width:8px;height:8px;border-radius:50%;background:#ffd6cf;box-shadow:0 0 0 5px rgba(255,255,255,.10)}
+    .live-card h2{margin:18px 0 4px;font-family:"Noto Serif";font-size:23px}
+    .live-meta{font-size:13px;color:#fff4d9}
+    .live-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .people{display:flex;align-items:center;gap:7px;color:#fff9ee;font-size:12px}
+    .people-stack{display:flex}
+    .person-dot{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--gold);font-weight:800;border:2px solid #8c6c25;margin-left:-6px}
+    .person-dot:first-child{margin-left:0}
+    .person-more{background:#ead8a9;color:#42350e}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:6px 0 10px}
+    .section-head h2{font-family:"Noto Serif";font-size:21px;margin:0}
+    .section-head p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+    .section-head .right-label{color:var(--gold);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+    .portal{padding:16px;min-height:145px;display:flex;flex-direction:column;justify-content:space-between;gap:15px;transition:.2s}
+    .portal:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .portal-top{display:flex;justify-content:space-between;gap:10px}
+    .portal-icon{width:42px;height:42px;border-radius:12px;background:var(--surface-2);color:var(--gold);display:grid;place-items:center}
+    .portal h3{margin:0;font-size:16px}
+    .portal p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .status-pill{font-size:10px;font-weight:800;border-radius:999px;padding:5px 8px;background:var(--surface-3);color:#5d5a54;white-space:nowrap}
+    .status-pill.success{background:var(--green-soft);color:var(--green)}
+    .status-pill.gold{background:#fff1cc;color:#7a5810}
+    .schedule-item{padding:16px}
+    .schedule-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .time-box{width:54px;height:54px;border-radius:13px;background:var(--surface-2);display:grid;place-items:center;color:var(--gold);flex:0 0 auto}
+    .time-box strong{font-size:20px;line-height:1}
+    .time-box span{font-size:10px;text-transform:uppercase;font-weight:800}
+    .schedule-main{min-width:0;flex:1}
+    .schedule-main h3{margin:0;font-size:16px}
+    .schedule-main p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+    .schedule-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap}
+    .schedule-footer .left{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px}
+    .chips{display:flex;gap:8px;overflow:auto;padding-bottom:3px;scrollbar-width:none}
+    .chips::-webkit-scrollbar{display:none}
+    .track{
+      flex:0 0 220px;padding:14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);
+      box-shadow:var(--shadow-sm)
+    }
+    .track-num{width:34px;height:34px;border-radius:10px;background:#f3ead6;color:var(--gold);display:grid;place-items:center;font-weight:800}
+    .track.active .track-num{background:var(--gold);color:#fff}
+    .track h4{margin:11px 0 2px;font-size:15px}
+    .track p{margin:0;color:var(--muted);font-size:12px}
+    .ai-card{padding:18px}
+    .ai-head{display:flex;align-items:flex-start;gap:12px}
+    .ai-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#fff;display:grid;place-items:center;flex:0 0 auto}
+    .ai-head h3{margin:1px 0 0;font-size:17px}
+    .ai-head p{margin:4px 0 0;font-size:12px;color:var(--muted);line-height:1.45}
+    .ai-controls{margin-top:14px}
+    .prompt-row{display:flex;gap:7px;overflow:auto;padding-bottom:3px;scrollbar-width:none}
+    .prompt-row::-webkit-scrollbar{display:none}
+    .prompt{
+      border:0;background:var(--surface-2);padding:8px 10px;border-radius:999px;font-size:12px;white-space:nowrap;color:#4e4b45
+    }
+    .prompt:hover{background:var(--surface-3)}
+    .ai-input-row{display:flex;gap:8px;margin-top:9px}
+    .ai-input-row input{flex:1;border:1px solid transparent;background:var(--surface-2);padding:11px 12px;border-radius:10px;outline:0}
+    .ai-input-row input:focus{border-color:var(--gold-2);background:#fff}
+    .payment-card{padding:18px;background:linear-gradient(135deg,#302f2b,#222321);color:#fff}
+    .payment-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .payment-account{margin-top:14px;padding:14px;border-radius:13px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .payment-number{font-family:"Noto Serif";font-size:23px;color:var(--gold-3);letter-spacing:.04em}
+    .payment-title{font-size:12px;color:#d6d2ca}
+    .payment-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .feature-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+    .feature-row:last-child{border-bottom:0}
+    .feature-icon{width:40px;height:40px;border-radius:50%;background:var(--surface-2);color:var(--gold);display:grid;place-items:center;flex:0 0 auto}
+    .feature-row strong{font-size:14px}
+    .feature-row p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    .check{margin-left:auto;color:var(--green)}
+
+    /* ---------- Pages ---------- */
+    .page-section{display:none}
+    .page-section.active{display:block}
+    .page-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
+    .panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+    .panel-title h3{margin:0;font-family:"Noto Serif";font-size:19px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+    table{width:100%;border-collapse:collapse;min-width:760px}
+    th,td{padding:12px 13px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}
+    th{background:var(--surface-2);color:#5f5c56;font-size:10px;text-transform:uppercase;letter-spacing:.07em}
+    tr:last-child td{border-bottom:0}
+    .course-card{padding:17px;display:flex;flex-direction:column;gap:10px}
+    .course-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .course-card h3{margin:0;font-size:16px}
+    .course-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+    .progress{height:8px;background:var(--surface-3);border-radius:999px;overflow:hidden}
+    .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:999px}
+    .course-meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px}
+    .admin-metric{padding:15px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .admin-metric strong{display:block;font-family:"Noto Serif";font-size:28px;line-height:1}
+    .admin-metric span{font-size:11px;color:var(--muted)}
+    .admin-metric .icon{font-size:29px;color:var(--gold-2)}
+    .metric-danger .icon,.metric-danger strong{color:var(--red)}
+    .metric-gold{background:#fffaf0}
+    .metric-danger{background:#fff7f5}
+    .switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .switch{position:relative;width:52px;height:28px}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;inset:0;background:#d8d6d1;border-radius:999px;transition:.2s}
+    .slider::before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 2px 5px rgba(0,0,0,.16)}
+    .switch input:checked + .slider{background:var(--gold-2)}
+    .switch input:checked + .slider::before{transform:translateX(24px)}
+    .fee-row{padding:15px 0;border-bottom:1px solid var(--line)}
+    .fee-row:last-child{border-bottom:0}
+    .fee-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .fee-top strong{font-size:14px}
+    .fee-top span{font-size:11px;color:var(--muted)}
+    .fee-edit{display:flex;gap:8px;margin-top:9px}
+    .fee-edit input{flex:1;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);padding:10px 11px;outline:0}
+    .fee-edit input:focus{background:#fff;border-color:var(--gold-2)}
+    .student-list{display:grid;gap:9px}
+    .student-row{padding:13px;border-radius:13px;background:var(--surface-2);display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .student-main{display:flex;align-items:center;gap:10px;min-width:0}
+    .initials{width:40px;height:40px;border-radius:50%;background:#e5dfd2;color:var(--gold);display:grid;place-items:center;font-weight:800;flex:0 0 auto}
+    .student-main strong{display:block;font-size:13px}
+    .student-main span{font-size:11px;color:var(--muted)}
+    .student-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .toast{
+      position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+      background:#242525;color:#fff;padding:11px 14px;border-radius:10px;z-index:100;font-size:12px;
+      box-shadow:0 16px 35px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:.25s;
+    }
+    .toast.show{opacity:1}
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(18,19,18,.66);backdrop-filter:blur(7px);z-index:80;
+      display:grid;place-items:center;padding:16px
+    }
+    .modal{
+      width:min(560px,100%);background:#fff;border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.32);
+      padding:20px
+    }
+    .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .modal-head h3{margin:0;font-family:"Noto Serif";font-size:20px}
+    .modal-body{margin-top:14px}
+    .modal-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:15px}
+    .ai-message{padding:12px;border-radius:12px;background:var(--surface-2);margin:9px 0;font-size:12px;line-height:1.6}
+    .ai-message.user{background:#f6eddb;border-left:3px solid var(--gold-2)}
+    .mobile-nav{
+      display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;
+      background:rgba(255,255,255,.93);backdrop-filter:blur(18px);border-top:1px solid var(--line);
+      padding:7px 6px calc(7px + env(safe-area-inset-bottom));
+      grid-template-columns:repeat(4,1fr)
+    }
+    .mobile-nav button{border:0;background:transparent;color:#6a675f;padding:6px 3px;border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:800}
+    .mobile-nav button.active{background:#f7efdc;color:var(--gold)}
+    .mobile-only{display:none}
+
+    /* ---------- Admin ---------- */
+    .admin-banner{padding:18px}
+    .admin-banner-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .super-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:8px;background:#fff0c9;color:#6b4c0d;font-size:11px;font-weight:800;text-transform:uppercase}
+    .security-pulse{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(21,115,71,.10)}
+    .admin-search{display:flex;gap:8px}
+    .admin-search input{flex:1;border:1px solid var(--line);border-radius:10px;background:#fff;padding:11px 12px;outline:0}
+    .admin-search input:focus{border-color:var(--gold-2)}
+    .notice{
+      display:flex;align-items:flex-start;gap:9px;padding:11px 12px;border-radius:11px;background:var(--surface-2);
+      color:#5d5a53;font-size:12px;line-height:1.45
+    }
+    .notice .icon{color:var(--gold);font-size:18px}
+    .receipt{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;
+      border:1px dashed #cbbd9f;border-radius:11px;background:#fffbf2
+    }
+    .receipt-info{display:flex;align-items:center;gap:9px;min-width:0}
+    .receipt .icon{color:var(--gold)}
+    .receipt strong,.receipt span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .receipt strong{font-size:12px}
+    .receipt span{font-size:11px;color:var(--muted)}
+    .dark-card{background:linear-gradient(135deg,#2f3130,#212321);color:#fff}
+    .dark-card .muted{color:#d0cdc7}
+
+    @media (max-width:980px){
+      .app-layout{grid-template-columns:1fr}
+      .sidebar{display:none}
+      .mobile-nav{display:grid}
+      .mobile-only{display:inline-flex}
+      .page{padding:18px 15px 90px}
+      .topbar{padding:0 15px}
+      .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .page-grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width:700px){
+      .wrap{width:min(100% - 24px,var(--max))}
+      .top-actions .desktop-only{display:none}
+      .user-chip strong{display:none}
+      .hero-welcome{padding:15px}
+      .welcome-copy h1{font-size:19px}
+      .welcome-copy p{font-size:11px}
+      .ayah{display:block}
+      .ayah-ar{font-size:19px;margin:2px 0}
+      .grid-2,.grid-3{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+      .portal{min-height:132px;padding:14px}
+      .schedule-item{padding:14px}
+      .schedule-top{align-items:flex-start}
+      .schedule-main h3{font-size:15px}
+      .payment-account{align-items:flex-start;flex-direction:column}
+      .payment-actions{width:100%}
+      .payment-actions .btn{flex:1}
+      .admin-metric strong{font-size:24px}
+      .student-row{align-items:flex-start;flex-direction:column}
+      .student-actions{width:100%;justify-content:flex-start}
+      .login-card{padding:19px}
+      .login-brand h1{font-size:25px}
+      .emblem{width:100px;height:100px}
+      .role-tabs{margin-top:17px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==============================
+       LOGIN / GATEWAY
+  =============================== -->
+  <section id="loginScreen">
+    <div class="login-shell">
+      <div class="login-brand">
+        <div class="sanctum-pill"><span class="icon">verified_user</span> Sacred Sisterhood &amp; Modest Sanctuary</div>
+
+        <div class="emblem">
+          <div class="emblem-inner">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDywRaB19WeOPRyALMUG_vxo14f7yHO2zYGfittOKN_p-QU6rVXtKatcPgx_B-LHatSVsSYuatpvXFtByAsM__LlfKS61nP_oCGFQD1xn5pdU2wf7bYFtc-sa2oBLvQpRiKeOR9hSPiDNmcLg-cDJg1bOnp7vygyY504ELmqFCB11g87ahylPlWj_NMF1jsAIIkjyQfPbqWnZNaAjmijhLRwGmoYmlgsNGN-I_tqGCUXS17nHTnrP1ycg" alt="Sarh-Ut-Taqwa Emblem">
+          </div>
+        </div>
+
+        <h1>SARH-UT-TAQWA</h1>
+        <div class="arabic serif rtl">صَرْحُ التَّقْوَىٰ الْإِسْلَامِيَّة</div>
+        <p>A complete online Islamic learning platform for Muslim women &amp; girls.</p>
+      </div>
+
+      <div class="role-tabs">
+        <button class="role-tab active" id="loginStudentTab" type="button" onclick="setLoginRole('student')">
+          <span class="icon">school</span> طالبہ لاگ ان
+        </button>
+        <button class="role-tab" id="loginTeacherTab" type="button" onclick="setLoginRole('teacher')">
+          <span class="icon">menu_book</span> استادہ لاگ ان
+        </button>
+      </div>
+
+      <div id="studentLoginPanel" class="login-card">
+        <div class="card-head">
+          <div>
+            <div class="section-eyebrow">Student Gateway</div>
+            <h2 class="rtl">طالبہ پورٹل میں داخلہ</h2>
+          </div>
+          <div class="head-icon"><span class="icon">badge</span></div>
+        </div>
+
+        <form id="studentLoginForm">
+          <div class="form-group">
+            <label class="form-label">
+              <span>Student Registration ID</span>
+              <span class="muted small rtl">طالبہ شناختی کوڈ</span>
+            </label>
+            <div class="input-wrap">
+              <span class="icon">tag</span>
+              <input class="input" id="studentId" placeholder="e.g. STU-2025-089" autocomplete="username" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <span>Guardian / WhatsApp Mobile</span>
+              <span class="muted small rtl">سرپرست کا وٹس ایپ نمبر</span>
+            </label>
+            <div class="input-wrap">
+              <span class="icon">chat</span>
+              <input class="input" id="guardianPhone" type="tel" placeholder="+92 300 0000000" required>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">
+            Enter Classroom &amp; Halaqah <span class="icon">arrow_forward</span>
+          </button>
+
+          <div class="login-links">
+            <button class="login-link" type="button" onclick="openAdmissionModal()">
+              <span><span class="icon" style="vertical-align:middle">how_to_reg</span> New Admission / Fee Slip Upload</span>
+              <span class="icon">chevron_right</span>
+            </button>
+          </div>
+
+          <div class="login-note">
+            <span class="icon" style="color:var(--gold)">info</span>
+            <span>نوٹ: فیس تصدیق مکمل ہونے کے بعد کلاس رسائی بحال کی جاتی ہے۔</span>
+          </div>
+        </form>
+      </div>
+
+      <div id="teacherLoginPanel" class="login-card hidden">
+        <div class="card-head">
+          <div>
+            <div class="section-eyebrow">Faculty Sanctuary</div>
+            <h2 class="rtl">محترمہ استادہ لاگ ان</h2>
+          </div>
+          <div class="head-icon"><span class="icon">local_library</span></div>
+        </div>
+
+        <form id="teacherLoginForm">
+          <div class="form-group">
+            <label class="form-label">
+              <span>Teacher Faculty ID</span>
+              <span class="muted small rtl">معلمہ کوڈ</span>
+            </label>
+            <div class="input-wrap">
+              <span class="icon">person_outline</span>
+              <input class="input" id="teacherId" placeholder="e.g. USTD-412" autocomplete="username" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <span>Admin-Issued Secret Security Code</span>
+              <span class="muted small rtl">خصوصی خفیہ کوڈ</span>
+            </label>
+            <div class="input-wrap">
+              <span class="icon">shield</span>
+              <input class="input" id="teacherSecret" type="password" placeholder="••••••••••••" required>
+              <button class="password-toggle" type="button" onclick="togglePassword('teacherSecret',this)">
+                <span class="icon">visibility</span>
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn-dark btn-block" type="submit">
+            Open Ustadhah Control Room <span class="icon">lock_open</span>
+          </button>
+
+          <div class="login-note">
+            <span class="icon" style="color:var(--gold)">verified</span>
+            <span>Secure authenticated broadcast channel with dedicated high-bandwidth audio preservation.</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="login-ai">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="ai-avatar"><span class="icon">smart_toy</span></div>
+          <div>
+            <div style="font-weight:800;font-size:13px">Sister Hadiyah <span class="label" style="color:var(--gold-3)">24/7 AI</span></div>
+            <div style="font-size:11px;color:#c9c7c0">Instant admission &amp; syllabus guidance</div>
+          </div>
+        </div>
+        <button class="btn" style="background:var(--gold-4);color:#2d2109;padding:8px 11px" type="button" onclick="openAiModal()">
+          Ask <span class="icon" style="font-size:16px">arrow_outward</span>
+        </button>
+      </div>
+
+      <div class="login-footer">© 2026 Sarh-Ut-Taqwa Islamic Academy. All Rights Reserved.</div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       APPLICATION SHELL
+  =============================== -->
+  <section id="appScreen">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="brand-mini">
+          <div class="logo"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDywRaB19WeOPRyALMUG_vxo14f7yHO2zYGfittOKN_p-QU6rVXtKatcPgx_B-LHatSVsSYuatpvXFtByAsM__LlfKS61nP_oCGFQD1xn5pdU2wf7bYFtc-sa2oBLvQpRiKeOR9hSPiDNmcLg-cDJg1bOnp7vygyY504ELmqFCB11g87ahylPlWj_NMF1jsAIIkjyQfPbqWnZNaAjmijhLRwGmoYmlgsNGN-I_tqGCUXS17nHTnrP1ycg" alt="Academy logo"></div>
+          <div><strong>Sarh-Ut-Taqwa</strong><span id="sideRoleLabel">Student Portal</span></div>
+        </div>
+
+        <nav class="side-nav" id="sideNav">
+          <button class="side-btn active" data-page="home" onclick="goPage('home')"><span class="icon">mosque</span> Home</button>
+          <button class="side-btn" data-page="classes" onclick="goPage('classes')"><span class="icon">menu_book</span> Classes</button>
+          <button class="side-btn" data-page="programs" onclick="goPage('programs')"><span class="icon">auto_stories</span> Programs</button>
+          <button class="side-btn admin-only" data-page="admin" onclick="goPage('admin')"><span class="icon">admin_panel_settings</span> Control Room</button>
+          <button class="side-btn" data-page="profile" onclick="goPage('profile')"><span class="icon">account_circle</span> Profile</button>
+        </nav>
+
+        <div class="sidebar-spacer"></div>
+
+        <div class="account-card">
+          <div class="status"><span class="dot"></span><span id="sideStatus">Online • PKT (UTC+5)</span></div>
+          <div class="small muted" style="margin-top:5px">Academy services operational</div>
+        </div>
+
+        <button class="btn btn-soft btn-block" type="button" onclick="logout()"><span class="icon">logout</span> Sign out</button>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="page-title">
+            <div>
+              <div class="crumb" id="pageCrumb">Student Sanctuary</div>
+              <strong id="pageHeading">Home</strong>
+            </div>
+          </div>
+          <div class="top-actions">
+            <button class="icon-btn desktop-only" type="button" title="Search" onclick="focusGlobalSearch()"><span class="icon">search</span></button>
+            <button class="icon-btn" type="button" title="Notifications" onclick="showToast('No new academy notifications.')"><span class="icon">notifications</span></button>
+            <div class="user-chip">
+              <div class="user-avatar" id="topAvatar">FZ</div>
+              <strong id="topUserName">Fatima Zahra</strong>
+            </div>
+          </div>
+        </header>
+
+        <main class="page">
+          <div class="page-inner">
+
+            <!-- HOME PAGE -->
+            <section class="page-section active" id="page-home">
+              <div class="grid" style="gap:16px">
+
+                <div class="card hero-welcome">
+                  <div class="welcome-left">
+                    <div class="welcome-logo"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdVTfdG-kVoVB_llK-xsZAP1Yo9jdtejWu02d-Lf6g0EZ8ZollNRDltBW9VL0F1feBLjB42ywAV-V_hNYzEufMqZYk_jc2d9qn4Sy5C4uIWKbkzVfViuU7hNukeT6pjJAUaF6DfriV9uR1j-JBciZCUi1u0ECg5Z01NtI3oJJ8AP2XqEdbyjDUXmxYfixZoEyqaluwRIbaHHtiC8rdcZiJ-1YkmcK-aiaLJTV8quCz1j1DJRJT6k6fXg" alt="Sarh-Ut-Taqwa Insignia"></div>
+                    <div class="welcome-copy">
+                      <div class="label" style="color:var(--gold)">Student Sanctuary</div>
+                      <h1>Assalamu Alaikum, Sister Fatima</h1>
+                      <p>May your pursuit of Ilm bring tranquility &amp; barakah.</p>
+                    </div>
+                  </div>
+                  <div class="badge"><span class="icon" style="font-size:15px">verified</span> Enrolled Student</div>
+
+                  <div class="ayah" style="position:absolute;left:-99999px" aria-hidden="true"></div>
+                </div>
+
+                <div class="card pad">
+                  <div class="ayah" style="margin-top:0">
+                    <div>
+                      <div class="ayah-title">Ayah of the Morning · Surah Al-Alaq 96:1</div>
+                      <div class="ayah-ar rtl">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</div>
+                      <div class="ayah-en">“Recite in the name of your Lord who created.”</div>
+                    </div>
+                    <button class="btn btn-soft" type="button" onclick="showToast('Morning Ayah opened for reading.')">Read <span class="icon">chevron_right</span></button>
+                  </div>
+                </div>
+
+                <div class="card live-card">
+                  <div class="live-top">
+                    <div class="live-badge"><span class="pulse"></span> Live Transmission Active</div>
+                    <div style="font-size:11px;color:#ffedc4;font-weight:800">Unlimited Session</div>
+                  </div>
+                  <h2>Advanced Tajweed &amp; Makharij</h2>
+                  <div class="live-meta"><span class="icon" style="font-size:16px;vertical-align:middle">person_celebrate</span> With Ustadha Maryam Al-Hashemi</div>
+                  <div class="live-bottom">
+                    <div class="people">
+                      <div class="people-stack">
+                        <div class="person-dot">MH</div><div class="person-dot">ZN</div><div class="person-dot person-more">+16</div>
+                      </div>
+                      18 Sisters in room
+                    </div>
+                    <button class="btn" style="background:#fff;color:var(--ink)" type="button" onclick="enterClassroom(this)"><span class="icon" style="color:var(--gold)">play_arrow</span> Enter Classroom</button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="section-head">
+                    <div><h2>Academy Portals</h2><p>Quick access to your learning areas</p></div>
+                    <div class="right-label">Portal Overview</div>
+                  </div>
+
+                  <div class="grid grid-2">
+                    <button class="card portal" type="button" onclick="goPage('classes')">
+                      <div class="portal-top"><div class="portal-icon"><span class="icon">videocam</span></div><span class="status-pill">کلاسز</span></div>
+                      <div><h3>Live Timetable</h3><p>Real-time schedule &amp; classroom portals</p></div>
+                    </button>
+                    <button class="card portal" type="button" onclick="goPage('programs')">
+                      <div class="portal-top"><div class="portal-icon"><span class="icon">auto_stories</span></div><span class="status-pill gold">8 Tracks</span></div>
+                      <div><h3>Academic Programs</h3><p>Hifz, Tajweed, Tafseer &amp; more</p></div>
+                    </button>
+                    <button class="card portal" type="button" onclick="goPage('classes')">
+                      <div class="portal-top"><div class="portal-icon"><span class="icon">video_library</span></div><span class="status-pill">Vault</span></div>
+                      <div><h3>Recorded Archive</h3><p>Rewatch past lectures &amp; notes</p></div>
+                    </button>
+                    <button class="card portal" type="button" onclick="goPage('profile')">
+                      <div class="portal-top"><div class="portal-icon"><span class="icon">account_balance_wallet</span></div><span class="status-pill success">Paid</span></div>
+                      <div><h3>Tuition &amp; Fees</h3><p>EasyPaisa: 03346213606</p></div>
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="section-head">
+                    <div><h2>Today’s Halaqat</h2><p>Daily class schedule</p></div>
+                    <div class="right-label">PKT (UTC+5)</div>
+                  </div>
+
+                  <div class="grid grid-2">
+                    <div class="card schedule-item">
+                      <div class="schedule-top">
+                        <div class="time-box"><strong>10</strong><span>AM</span></div>
+                        <div class="schedule-main">
+                          <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+                            <h3>Tajweed Correction Circle</h3><span class="status-pill gold">Ongoing</span>
+                          </div>
+                          <p>Ustadha Maryam • Room Alpha</p>
+                        </div>
+                      </div>
+                      <div class="schedule-footer">
+                        <div class="left"><span class="icon" style="font-size:16px">schedule</span> 10:00 AM – 11:30 AM</div>
+                        <button class="btn btn-primary" type="button" onclick="enterClassroom(this)">Enter Classroom <span class="icon">east</span></button>
+                      </div>
+                    </div>
+
+                    <div class="card schedule-item">
+                      <div class="schedule-top">
+                        <div class="time-box"><strong>04</strong><span>PM</span></div>
+                        <div class="schedule-main">
+                          <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+                            <h3>Tafseer Surah Al-Kahf</h3><span class="status-pill">Upcoming</span>
+                          </div>
+                          <p>Ustadha Zainab • Room Gamma</p>
+                        </div>
+                      </div>
+                      <div class="schedule-footer">
+                        <div class="left"><span class="icon" style="font-size:16px">notifications_active</span> Reminder set · 15m before</div>
+                        <button class="btn btn-soft" type="button" onclick="showToast('Class details: Surah Al-Kahf, verses 1–10.')">Class Details <span class="icon">event</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card ai-card">
+                  <div class="ai-head">
+                    <div class="ai-avatar"><span class="icon">smart_toy</span></div>
+                    <div>
+                      <h3>Sister Hadiyah <span class="status-pill success">24/7 AI Guide</span></h3>
+                      <p>Academic companion for Tajweed questions, past lecture summaries, Arabic grammar and homework revision.</p>
+                    </div>
+                  </div>
+                  <div class="ai-controls">
+                    <div class="prompt-row">
+                      <button class="prompt" onclick="usePrompt('Summarize today’s Tajweed notes')">✨ Summarize today’s Tajweed notes</button>
+                      <button class="prompt" onclick="usePrompt('Test my Ikhfa rules')">📖 Test my Ikhfa rules</button>
+                      <button class="prompt" onclick="usePrompt('Explain Arabic grammar basics')">📝 Explain Arabic grammar basics</button>
+                    </div>
+                    <div class="ai-input-row">
+                      <input id="hadiyahInput" placeholder="Ask Sister Hadiyah any curriculum question..." onkeydown="if(event.key==='Enter')sendAiQuestion()">
+                      <button class="btn btn-dark" type="button" onclick="sendAiQuestion()"><span class="icon">send</span></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-2">
+                  <div class="card pad">
+                    <div class="panel-title"><h3>Inside the Academy App</h3><span class="right-label">Excellence in Tutelage</span></div>
+                    <div class="feature-row"><div class="feature-icon"><span class="icon">person_apron</span></div><div><strong>Qualified Female Teachers</strong><p>Verified Alimahs &amp; Sanad-holding Ustadhas</p></div><span class="icon check">verified_user</span></div>
+                    <div class="feature-row"><div class="feature-icon"><span class="icon">cast_for_education</span></div><div><strong>Live Interactive Halqas</strong><p>Two-way audio &amp; whiteboard for recitation check</p></div><span class="icon check">verified_user</span></div>
+                    <div class="feature-row"><div class="feature-icon"><span class="icon">history_edu</span></div><div><strong>Archived Class Recordings</strong><p>Full access to previous classes for revision</p></div><span class="icon check">verified_user</span></div>
+                    <div class="feature-row"><div class="feature-icon"><span class="icon">trending_up</span></div><div><strong>Personal Progress Tracking</strong><p>Surah milestones, Juz retention &amp; exam reports</p></div><span class="icon check">verified_user</span></div>
+                    <div class="feature-row"><div class="feature-icon"><span class="icon">assignment_turned_in</span></div><div><strong>Weekly Recitation Assignments</strong><p>Submit voice notes directly to your Ustadha</p></div><span class="icon check">verified_user</span></div>
+                  </div>
+
+                  <div class="card payment-card">
+                    <div class="payment-head">
+                      <div style="display:flex;gap:9px;align-items:center"><span class="icon" style="color:var(--gold-3)">account_balance_wallet</span><strong>Official Tuition Account</strong></div>
+                      <span class="status-pill success">Verified</span>
+                    </div>
+                    <div class="payment-account">
+                      <div>
+                        <div class="label" style="color:#c9c5bc">EasyPaisa</div>
+                        <div class="payment-number" id="homePaymentNumber">03346213606</div>
+                        <div class="payment-title">Title: Sarh-Ut-Taqwa Official</div>
+                      </div>
+                      <div class="payment-actions">
+                        <button class="btn" style="background:#fff;color:var(--ink)" type="button" onclick="copyText('03346213606','Payment number copied.')"><span class="icon">content_copy</span> Copy</button>
+                        <button class="btn" style="background:rgba(255,255,255,.08);color:#fff" type="button" onclick="openAdmissionModal()"><span class="icon">upload_file</span> Fee Slip</button>
+                      </div>
+                    </div>
+                    <p class="small muted" style="margin:12px 0 0">Please share fee slips to the registrar office via WhatsApp after completing monthly halaqah dues.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- CLASSES -->
+            <section class="page-section" id="page-classes">
+              <div class="section-head">
+                <div><h2>Classes &amp; Timetable</h2><p>Live sessions, upcoming halaqat and recordings</p></div>
+                <button class="btn btn-soft" onclick="showToast('Your classroom calendar is synchronized.')"><span class="icon">sync</span> Sync</button>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="card schedule-item">
+                  <div class="schedule-top">
+                    <div class="time-box"><strong>10</strong><span>AM</span></div>
+                    <div class="schedule-main">
+                      <span class="section-eyebrow">Circle 03</span>
+                      <h3>Tajweed Correction Circle</h3>
+                      <p>Juz 'Amma • Al-Huruf Al-Halqiyyah • Ustadha Maryam</p>
+                    </div>
+                  </div>
+                  <div class="schedule-footer">
+                    <div class="left"><span class="icon" style="font-size:16px">live_tv</span> Ongoing • 18 sisters</div>
+                    <button class="btn btn-primary" onclick="enterClassroom(this)">Enter Classroom</button>
+                  </div>
+                </div>
+
+                <div class="card schedule-item">
+                  <div class="schedule-top">
+                    <div class="time-box"><strong>04</strong><span>PM</span></div>
+                    <div class="schedule-main">
+                      <span class="section-eyebrow">Lecture Hall A</span>
+                      <h3>Tafseer Surah Al-Kahf</h3>
+                      <p>Verses 1–10 • Spiritual armor &amp; reflection</p>
+                    </div>
+                  </div>
+                  <div class="schedule-footer">
+                    <div class="left"><span class="icon" style="font-size:16px">schedule</span> Upcoming • 04:00 PM – 05:30 PM</div>
+                    <button class="btn btn-soft" onclick="showToast('Reminder already set for 03:45 PM.')">Class Details</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card pad" style="margin-top:16px">
+                <div class="panel-title"><h3>Recorded Archive</h3><span class="right-label">Halaqah Replays</span></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Lecture</th><th>Teacher</th><th>Date</th><th>Duration</th><th></th></tr></thead>
+                    <tbody>
+                      <tr><td>Tajweed Makharij Revision</td><td>Ustadha Maryam</td><td>06 Oct 2026</td><td>54 min</td><td><button class="btn btn-soft" onclick="showToast('Opening lecture recording…')">Watch</button></td></tr>
+                      <tr><td>Surah Al-Baqarah Reflection</td><td>Dr. Ayesha</td><td>04 Oct 2026</td><td>68 min</td><td><button class="btn btn-soft" onclick="showToast('Opening lecture recording…')">Watch</button></td></tr>
+                      <tr><td>Ikhfa &amp; Idgham Practice</td><td>Ustadha Zainab</td><td>01 Oct 2026</td><td>47 min</td><td><button class="btn btn-soft" onclick="showToast('Opening lecture recording…')">Watch</button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- PROGRAMS -->
+            <section class="page-section" id="page-programs">
+              <div class="section-head">
+                <div><h2>Academic Programs</h2><p>8 accredited curriculum pathways</p></div>
+                <span class="right-label">The 8 Sanad Pathways</span>
+              </div>
+
+              <div class="grid grid-3">
+                <div class="card course-card"><div class="course-top"><div class="track-num">1</div><span class="status-pill success">Active</span></div><h3>Hifz-ul-Quran</h3><p>Structured memorization, daily revision, Juz retention and milestone tracking.</p><div class="progress"><span style="width:72%"></span></div><div class="course-meta"><span>Progress</span><strong>72%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">2</div><span class="status-pill success">Active Circle</span></div><h3>Tajweed Rules</h3><p>Makharij, Sifaat, Ikhfa, Idgham, Qalqalah and correction circles.</p><div class="progress"><span style="width:65%"></span></div><div class="course-meta"><span>Progress</span><strong>65%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">3</div><span class="status-pill">Track</span></div><h3>Nazra Quran</h3><p>Fluent recitation pathway with supervised correction and reading confidence.</p><div class="progress"><span style="width:48%"></span></div><div class="course-meta"><span>Progress</span><strong>48%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">4</div><span class="status-pill">Track</span></div><h3>Noorani Qaida</h3><p>Foundations for Arabic letters, harakaat, joining and accurate reading.</p><div class="progress"><span style="width:89%"></span></div><div class="course-meta"><span>Progress</span><strong>89%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">5</div><span class="status-pill">Track</span></div><h3>Tarjuma Quran</h3><p>Word translation, vocabulary development and verse-level understanding.</p><div class="progress"><span style="width:39%"></span></div><div class="course-meta"><span>Progress</span><strong>39%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">6</div><span class="status-pill">Track</span></div><h3>Tafseer-e-Kareem</h3><p>Exegesis, reflection, themes and contextual understanding of selected surahs.</p><div class="progress"><span style="width:32%"></span></div><div class="course-meta"><span>Progress</span><strong>32%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">7</div><span class="status-pill">Track</span></div><h3>Hadith Studies</h3><p>Sunnah sciences, selected ahadith, meanings and practical takeaways.</p><div class="progress"><span style="width:27%"></span></div><div class="course-meta"><span>Progress</span><strong>27%</strong></div></div>
+                <div class="card course-card"><div class="course-top"><div class="track-num">8</div><span class="status-pill">Track</span></div><h3>New Muslims</h3><p>Revert guidance with foundational worship, Quran literacy and support.</p><div class="progress"><span style="width:55%"></span></div><div class="course-meta"><span>Progress</span><strong>55%</strong></div></div>
+                <div class="card pad" style="display:flex;flex-direction:column;justify-content:center;background:linear-gradient(145deg,#fff9ec,#f4ede0)">
+                  <div class="section-eyebrow">Need help selecting a path?</div>
+                  <h3 style="font-family:'Noto Serif';font-size:21px;margin:8px 0">Ask Sister Hadiyah</h3>
+                  <p class="muted small">Get guidance on course level, timetable and revision strategy.</p>
+                  <button class="btn btn-primary" style="margin-top:9px" onclick="openAiModal()"><span class="icon">smart_toy</span> Ask 24/7 AI</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADMIN -->
+            <section class="page-section" id="page-admin">
+              <div class="card admin-banner">
+                <div class="admin-banner-top">
+                  <div style="display:flex;align-items:center;gap:9px">
+                    <span class="super-pill"><span class="icon" style="font-size:15px">shield_person</span> Superuser Admin</span>
+                    <span class="status-pill">100% Control</span>
+                  </div>
+                  <span class="security-pulse" title="Operational"></span>
+                </div>
+                <div class="notice" style="margin-top:12px"><span class="icon">info</span><span>Administrative controls in this front-end demo are local to this browser. Connect them to your real database/authentication before production.</span></div>
+              </div>
+
+              <div class="grid grid-4" style="margin-top:16px">
+                <div class="card admin-metric"><div><span>Enrolled Sisters</span><strong>142</strong></div><span class="icon">groups</span></div>
+                <div class="card admin-metric"><div><span>Active Courses</span><strong>08</strong></div><span class="icon">auto_stories</span></div>
+                <div class="card admin-metric metric-gold"><div><span>Pending Fee Slips</span><strong style="color:#7a5810">05</strong></div><span class="icon">receipt_long</span></div>
+                <div class="card admin-metric metric-danger"><div><span>Blocked Accounts</span><strong>02</strong></div><span class="icon">lock_person</span></div>
+              </div>
+
+              <div class="page-grid" style="margin-top:16px">
+                <div class="grid">
+                  <div class="card pad">
+                    <div class="switch-row">
+                      <div>
+                        <div class="section-eyebrow">Global Campaigns</div>
+                        <h3 style="margin:4px 0 0;font-family:'Noto Serif';font-size:20px">Seasonal Tuition Matrix</h3>
+                        <div class="muted small">Ramadan Mubarak Offer · 20% OFF</div>
+                      </div>
+                      <label class="switch" title="Campaign toggle">
+                        <input id="campaignToggle" type="checkbox" checked onchange="toggleCampaign(this)">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="notice" style="margin-top:13px"><span class="icon">campaign</span><span>Turn off anytime to restore standard tuition fees for all academy courses across the student portal.</span></div>
+                  </div>
+
+                  <div class="card pad">
+                    <div class="panel-title"><h3>Tuition &amp; Fee Register</h3><span class="right-label">Currency: PKR</span></div>
+
+                    <div class="fee-row">
+                      <div class="fee-top"><strong>Hifz-ul-Quran (حفظ القرآن)</strong><span>Standard: <s>PKR 3,500</s></span></div>
+                      <div class="fee-edit"><input type="number" value="2800" data-fee="Hifz-ul-Quran"><button class="btn btn-soft" onclick="updateFee(this)">Update</button></div>
+                    </div>
+
+                    <div class="fee-row">
+                      <div class="fee-top"><strong>Tajweed &amp; Makharij (تجويد و مخارج)</strong><span>Standard: <s>PKR 2,500</s></span></div>
+                      <div class="fee-edit"><input type="number" value="2000" data-fee="Tajweed"><button class="btn btn-soft" onclick="updateFee(this)">Update</button></div>
+                    </div>
+
+                    <div class="fee-row">
+                      <div class="fee-top"><strong>Quranic Qaida &amp; Nazra (قاعدہ و ناظرہ)</strong><span>Standard: <s>PKR 2,000</s></span></div>
+                      <div class="fee-edit"><input type="number" value="1500" data-fee="Qaida & Nazra"><button class="btn btn-soft" onclick="updateFee(this)">Update</button></div>
+                    </div>
+
+                    <div class="fee-row">
+                      <div class="fee-top"><strong>Tafseer &amp; Arabic (تفسير و لغة)</strong><span>Standard: PKR 3,000</span></div>
+                      <div class="fee-edit"><input type="number" placeholder="Custom fee / discount" value="" data-fee="Tafseer & Arabic"><button class="btn btn-soft" onclick="updateFee(this)">Apply</button></div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" style="margin-top:12px" onclick="showToast('Fee changes saved in this browser.')"><span class="icon">save</span> محفوظ کریں · Save Fee Changes</button>
+                  </div>
+
+                  <div class="card pad">
+                    <div class="panel-title"><h3>Student Directory</h3><span class="status-pill">142 Total</span></div>
+                    <div class="admin-search"><input id="studentSearch" placeholder="Search by Student ID or Name…" oninput="filterStudents()"><button class="btn btn-soft"><span class="icon">search</span></button></div>
+
+                    <div class="student-list" id="studentList" style="margin-top:11px">
+                      <div class="student-row" data-search="fatima zahra stu-2025-012 hifz">
+                        <div class="student-main"><div class="initials">FZ</div><div><strong>Fatima Zahra</strong><span>STU-2025-012 · Hifz · Active</span></div></div>
+                        <div class="student-actions"><button class="btn btn-soft" onclick="studentAction('blocked')">عارضی بلاک</button><button class="btn btn-danger" onclick="studentAction('removed')">Remove</button></div>
+                      </div>
+
+                      <div class="student-row" data-search="zainab bibi stu-2025-089 tajweed">
+                        <div class="student-main"><div class="initials">ZB</div><div><strong>Zainab Bibi</strong><span>STU-2025-089 · Tajweed · Active</span></div></div>
+                        <div class="student-actions"><button class="btn btn-soft" onclick="studentAction('blocked')">عارضی بلاک</button><button class="btn btn-danger" onclick="studentAction('removed')">Remove</button></div>
+                      </div>
+
+                      <div class="student-row" data-search="maryam noor stu-2024-144 blocked due 2 months">
+                        <div class="student-main"><div class="initials" style="background:var(--red-soft);color:var(--red)">MN</div><div><strong>Maryam Noor</strong><span>STU-2024-144 · Due: 2 Months Fee · Blocked</span></div></div>
+                        <div class="student-actions"><button class="btn btn-green" onclick="studentAction('unblocked')">بحال کریں</button><button class="btn btn-danger" onclick="studentAction('deleted')">Delete</button></div>
+                      </div>
+
+                      <div class="student-row" data-search="ayesha tariq applicant fee slip 2000">
+                        <div class="student-main"><div class="initials" style="background:#fff0c9;color:#7a5810">AT</div><div><strong>Ayesha Tariq</strong><span>Applicant · PKR 2,000 EasyPaisa · Review Slip</span></div></div>
+                        <div class="student-actions"><button class="btn btn-primary" onclick="approveApplicant()">داخلہ منظور</button><button class="btn btn-danger" onclick="rejectApplicant()">مسترد</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid">
+                  <div class="card pad">
+                    <div class="panel-title"><h3>Pending Fee Slip</h3><span class="status-pill gold">05 Pending</span></div>
+                    <div class="receipt">
+                      <div class="receipt-info"><span class="icon">image</span><div><strong>easypaisa_receipt_8492.jpg</strong><span>Trans ID: EP-984210492 · Attached</span></div></div>
+                      <button class="btn btn-soft" onclick="openSlipModal()"><span class="icon">visibility</span> View</button>
+                    </div>
+                    <div class="grid grid-2" style="margin-top:9px">
+                      <button class="btn btn-primary" onclick="approveApplicant()">Approve</button>
+                      <button class="btn btn-danger" onclick="rejectApplicant()">Reject</button>
+                    </div>
+                  </div>
+
+                  <div class="card dark-card pad">
+                    <div class="panel-title"><h3 style="color:#fff">Official EasyPaisa Wallet</h3><span class="status-pill success">Active</span></div>
+                    <div class="small muted">Gateway Sync: Operational</div>
+                    <div class="payment-account">
+                      <div><div class="label" style="color:#a9a49a">Account Details</div><div class="payment-number">0334 6213606</div><div class="payment-title">Title: Sarh-Ut-Taqwa Academy</div></div>
+                      <button class="icon-btn" style="color:var(--gold-3)" onclick="copyText('03346213606','Wallet number copied.')"><span class="icon">content_copy</span></button>
+                    </div>
+                    <button class="btn" style="width:100%;margin-top:10px;background:rgba(255,255,255,.08);color:#fff" onclick="openAnnouncementModal()"><span class="icon" style="color:var(--gold-3)">broadcast_on_personal</span> Broadcast Instant Announcement</button>
+                  </div>
+
+                  <div class="card pad">
+                    <div class="panel-title"><h3>Master Admin Device Setup</h3><span class="right-label">One-time</span></div>
+                    <p class="small muted">Verify a Super Admin key here before connecting this UI to persistent role-based access.</p>
+                    <input class="input" style="padding-left:13px;margin-bottom:8px" id="masterKey" type="password" placeholder="Enter Super Admin Security Key">
+                    <button class="btn btn-dark btn-block" onclick="authorizeDevice()"><span class="icon">lock_reset</span> Verify &amp; Authorize Device</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- PROFILE -->
+            <section class="page-section" id="page-profile">
+              <div class="section-head">
+                <div><h2>Profile &amp; Account</h2><p>Academy identity, payment details and account settings</p></div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="card pad">
+                  <div style="display:flex;align-items:center;gap:13px">
+                    <div class="user-avatar" style="width:54px;height:54px;font-size:18px" id="profileAvatar">FZ</div>
+                    <div><h3 style="margin:0 0 2px;font-family:'Noto Serif';font-size:21px" id="profileName">Fatima Zahra</h3><div class="muted small" id="profileId">ST-8492 · Tahfeez &amp; Tajweed Guild</div></div>
+                  </div>
+                  <div class="grid grid-2" style="margin-top:17px">
+                    <div class="card pad" style="background:var(--surface-2);box-shadow:none"><div class="label">Enrollment</div><strong style="display:block;margin-top:5px">Active</strong></div>
+                    <div class="card pad" style="background:var(--surface-2);box-shadow:none"><div class="label">Portal Access</div><strong style="display:block;margin-top:5px">Verified</strong></div>
+                  </div>
+                </div>
+
+                <div class="card pad">
+                  <div class="panel-title"><h3>Official Tuition Account</h3><span class="status-pill success">Verified</span></div>
+                  <div class="payment-account" style="background:var(--surface-2)">
+                    <div><div class="label" style="color:#77736b">EasyPaisa Account</div><div class="payment-number" style="color:var(--gold)">03346213606</div><div class="payment-title">Title: Sarh-Ut-Taqwa Official</div></div>
+                    <button class="btn btn-soft" onclick="copyText('03346213606','Payment number copied.')"><span class="icon">content_copy</span> Copy</button>
+                  </div>
+                </div>
+
+                <div class="card pad">
+                  <div class="panel-title"><h3>Notifications</h3><span class="right-label">Preferences</span></div>
+                  <label style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)">
+                    <span><strong style="font-size:13px;display:block">Class reminders</strong><span class="small muted">15 minutes before a class</span></span>
+                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                  </label>
+                  <label style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0">
+                    <span><strong style="font-size:13px;display:block">Fee verification updates</strong><span class="small muted">Admission and payment status</span></span>
+                    <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                  </label>
+                </div>
+
+                <div class="card pad">
+                  <div class="panel-title"><h3>Support</h3><span class="right-label">Academic Help</span></div>
+                  <div class="notice"><span class="icon">support_agent</span><span>For credentials, admission verification or timetable questions, contact the Academic Dean / Registrar office.</span></div>
+                  <button class="btn btn-primary" style="margin-top:10px" onclick="openAiModal()"><span class="icon">smart_toy</span> Ask Sister Hadiyah</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </main>
+
+        <nav class="mobile-nav" id="mobileNav">
+          <button class="active" data-page="home" onclick="goPage('home')"><span class="icon">mosque</span>Home</button>
+          <button data-page="classes" onclick="goPage('classes')"><span class="icon">menu_book</span>Classes</button>
+          <button data-page="programs" onclick="goPage('programs')"><span class="icon">auto_stories</span>Programs</button>
+          <button data-page="profile" onclick="goPage('profile')"><span class="icon">account_circle</span>Profile</button>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       MODALS
+  =============================== -->
+  <div class="hidden modal-backdrop" id="aiModal" onclick="closeOnBackdrop(event,'aiModal')">
+    <div class="modal">
+      <div class="modal-head">
+        <div style="display:flex;align-items:center;gap:9px"><div class="ai-avatar" style="width:38px;height:38px"><span class="icon">smart_toy</span></div><h3>Sister Hadiyah</h3></div>
+        <button class="icon-btn" onclick="closeModal('aiModal')"><span class="icon">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="ai-message">Assalamu Alaikum wa Rahmatullah! Welcome to Sarh-Ut-Taqwa. I can guide you through Tajweed, Tafseer, Alimah pathways, fee submission and class timings.</div>
+        <div class="prompt-row">
+          <button class="prompt" onclick="aiModalPrompt('View syllabus & course timings')">📖 View syllabus &amp; timings</button>
+          <button class="prompt" onclick="aiModalPrompt('How to submit fee slip')">📝 Fee &amp; admission form</button>
+          <button class="prompt" onclick="aiModalPrompt('Which program should I join?')">🎓 Choose a program</button>
+        </div>
+        <div class="ai-input-row">
+          <input id="aiModalInput" placeholder="Type your question…">
+          <button class="btn btn-dark" onclick="sendAiModalQuestion()"><span class="icon">send</span></button>
+        </div>
+        <div id="aiModalMessages"></div>
+      </div>
+      <div class="modal-actions"><button class="btn btn-soft" onclick="closeModal('aiModal')">Close</button></div>
+    </div>
+  </div>
+
+  <div class="hidden modal-backdrop" id="admissionModal" onclick="closeOnBackdrop(event,'admissionModal')">
+    <div class="modal">
+      <div class="modal-head"><h3>New Admission / Fee Slip Upload</h3><button class="icon-btn" onclick="closeModal('admissionModal')"><span class="icon">close</span></button></div>
+      <div class="modal-body">
+        <div class="grid grid-2">
+          <div class="form-group"><label class="form-label">Full Name</label><input class="input" style="padding-left:13px" id="admissionName" placeholder="Your full name"></div>
+          <div class="form-group"><label class="form-label">WhatsApp Number</label><input class="input" style="padding-left:13px" id="admissionPhone" placeholder="+92 300 0000000"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Program</label><select class="select" style="padding-left:13px" id="admissionProgram"><option>Hifz-ul-Quran</option><option>Tajweed Rules</option><option>Nazra Quran</option><option>Noorani Qaida</option><option>Tarjuma Quran</option><option>Tafseer-e-Kareem</option><option>Hadith Studies</option><option>New Muslims</option></select></div>
+        <div class="form-group"><label class="form-label">Fee Slip / Receipt</label><input class="input" style="padding-left:13px" type="file" id="admissionFile" accept="image/*,.pdf"></div>
+        <div class="notice"><span class="icon">info</span><span>This demo stores nothing on a server. A real upload needs a backend/storage service.</span></div>
+      </div>
+      <div class="modal-actions"><button class="btn btn-soft" onclick="closeModal('admissionModal')">Cancel</button><button class="btn btn-primary" onclick="submitAdmission()">Submit Admission</button></div>
+    </div>
+  </div>
+
+  <div class="hidden modal-backdrop" id="slipModal" onclick="closeOnBackdrop(event,'slipModal')">
+    <div class="modal">
+      <div class="modal-head"><h3>Fee Slip Preview</h3><button class="icon-btn" onclick="closeModal('slipModal')"><span class="icon">close</span></button></div>
+      <div class="modal-body">
+        <div class="notice"><span class="icon">receipt_long</span><span><strong>Ayesha Tariq</strong> · PKR 2,000 EasyPaisa · EP-984210492</span></div>
+        <div style="margin-top:12px;border-radius:14px;background:linear-gradient(145deg,#fff8e8,#f3ead5);min-height:220px;display:grid;place-items:center;color:#a1854b">
+          <div style="text-align:center"><span class="icon" style="font-size:48px">image</span><div style="margin-top:8px;font-weight:800">Receipt Preview Placeholder</div><div class="small">Replace with the uploaded receipt image in your backend.</div></div>
+        </div>
+      </div>
+      <div class="modal-actions"><button class="btn btn-soft" onclick="closeModal('slipModal')">Close</button></div>
+    </div>
+  </div>
+
+  <div class="hidden modal-backdrop" id="announcementModal" onclick="closeOnBackdrop(event,'announcementModal')">
+    <div class="modal">
+      <div class="modal-head"><h3>Broadcast Announcement</h3><button class="icon-btn" onclick="closeModal('announcementModal')"><span class="icon">close</span></button></div>
+      <div class="modal-body">
+        <div class="form-group"><label class="form-label">Announcement</label><textarea class="textarea" style="padding:12px;min-height:130px" id="announcementText" placeholder="Write an academy announcement…"></textarea></div>
+        <div class="notice"><span class="icon">campaign</span><span>In production, connect this to your student notification feed / WhatsApp workflow.</span></div>
+      </div>
+      <div class="modal-actions"><button class="btn btn-soft" onclick="closeModal('announcementModal')">Cancel</button><button class="btn btn-primary" onclick="broadcastAnnouncement()">Broadcast</button></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const state = {
+      role: 'student',
+      page: 'home',
+      loggedIn: false,
+      campaign: true,
+      user: {
+        name: 'Fatima Zahra',
+        avatar: 'FZ',
+        id: 'ST-8492',
+      }
+    };
+
+    const AI_ANSWERS = {
+      default: "I can help with Tajweed rules, course pathways, class timings, past lecture summaries, admissions and fee-slip guidance.",
+      tajweed: "For Tajweed practice, revise Makharij, Sifaat, Ikhfa, Idgham, Qalqalah and the correction notes from your latest circle. You can also open the Tajweed track from Programs.",
+      fee: "The official academy account shown in the supplied design is EasyPaisa 03346213606. After payment, share the fee slip with the registrar office. Connect a real verification workflow before production.",
+      admission: "For a new admission, submit your full name, WhatsApp number, selected program and fee slip. The demo form is available from the login gateway.",
+      timing: "Today’s sample timetable has Tajweed Correction Circle at 10:00 AM–11:30 AM and Tafseer Surah Al-Kahf at 04:00 PM–05:30 PM.",
+      program: "The supplied academy screen contains 8 pathways: Hifz-ul-Quran, Tajweed Rules, Nazra Quran, Noorani Qaida, Tarjuma Quran, Tafseer-e-Kareem, Hadith Studies and New Muslims."
+    };
+
+    function setLoginRole(role){
+      state.role = role;
+      const sTab = document.getElementById('loginStudentTab');
+      const tTab = document.getElementById('loginTeacherTab');
+      const sPanel = document.getElementById('studentLoginPanel');
+      const tPanel = document.getElementById('teacherLoginPanel');
+
+      sTab.classList.toggle('active',role==='student');
+      tTab.classList.toggle('active',role==='teacher');
+      sPanel.classList.toggle('hidden',role!=='student');
+      tPanel.classList.toggle('hidden',role!=='teacher');
+    }
+
+    function togglePassword(id,btn){
+      const input = document.getElementById(id);
+      const icon = btn.querySelector('.icon');
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      icon.textContent = isPassword ? 'visibility_off' : 'visibility';
+    }
+
+    function loginAs(role){
+      state.role = role;
+      state.loggedIn = true;
+      document.body.classList.add('app-mode');
+
+      const admin = role === 'teacher';
+      document.querySelectorAll('.admin-only').forEach(el => el.classList.toggle('hidden',!admin));
+      document.getElementById('sideRoleLabel').textContent = admin ? 'Faculty Control Room' : 'Student Portal';
+
+      if(admin){
+        state.user = {name:'Ustadha Maryam',avatar:'UM',id:'USTD-412'};
+        goPage('admin');
+      }else{
+        state.user = {name:'Fatima Zahra',avatar:'FZ',id:'ST-8492'};
+        goPage('home');
+      }
+      updateUserUI();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    document.getElementById('studentLoginForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const id = document.getElementById('studentId').value.trim();
+      const phone = document.getElementById('guardianPhone').value.trim();
+      if(!id || !phone) return;
+      loginAs('student');
+      showToast('Student portal opened successfully.');
+    });
+
+    document.getElementById('teacherLoginForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const id = document.getElementById('teacherId').value.trim();
+      const secret = document.getElementById('teacherSecret').value.trim();
+      if(!id || !secret) return;
+      loginAs('teacher');
+      showToast('Faculty control room opened.');
+    });
+
+    function updateUserUI(){
+      document.getElementById('topAvatar').textContent = state.user.avatar;
+      document.getElementById('topUserName').textContent = state.user.name;
+      document.getElementById('profileAvatar').textContent = state.user.avatar;
+      document.getElementById('profileName').textContent = state.user.name;
+      document.getElementById('profileId').textContent = state.user.id + (state.role==='teacher' ? ' · Faculty' : ' · Tahfeez & Tajweed Guild');
+    }
+
+    function goPage(page){
+      if(page==='admin' && state.role!=='teacher'){
+        showToast('Control Room is restricted to faculty/admin accounts.');
+        return;
+      }
+      state.page = page;
+      document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
+      const target = document.getElementById('page-'+page);
+      if(target) target.classList.add('active');
+
+      const titles = {
+        home:['Student Sanctuary','Home'],
+        classes:['Academic Learning','Classes & Timetable'],
+        programs:['Curriculum','Academic Programs'],
+        admin:['Superuser Admin','Control Room'],
+        profile:['Account','Profile & Settings']
+      };
+      document.getElementById('pageCrumb').textContent = titles[page][0];
+      document.getElementById('pageHeading').textContent = titles[page][1];
+
+      document.querySelectorAll('.side-btn,[data-page]').forEach(btn=>{
+        if(btn.dataset.page) btn.classList.toggle('active',btn.dataset.page===page);
+      });
+      document.querySelectorAll('.mobile-nav button').forEach(btn=>{
+        btn.classList.toggle('active',btn.dataset.page===page);
+      });
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function logout(){
+      state.loggedIn = false;
+      document.body.classList.remove('app-mode');
+      setLoginRole('student');
+      document.getElementById('studentLoginForm').reset();
+      document.getElementById('teacherLoginForm').reset();
+      showToast('Signed out.');
+    }
+
+    function enterClassroom(btn){
+      const old = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="icon">sync</span> Connecting…';
+      setTimeout(()=>{
+        btn.disabled = false;
+        btn.innerHTML = old;
+        showToast('Classroom connection ready. Connect your real meeting URL here.');
+      },1200);
+    }
+
+    function copyText(text,message){
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(()=>showToast(message)).catch(()=>showToast('Copy failed. Please copy manually.'));
+      }else{
+        showToast('Clipboard access is unavailable on this local page.');
+      }
+    }
+
+    function showToast(message){
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=>toast.classList.remove('show'),2600);
+    }
+
+    function usePrompt(text){
+      document.getElementById('hadiyahInput').value = text;
+      document.getElementById('hadiyahInput').focus();
+    }
+
+    function answerAi(question){
+      const q = question.toLowerCase();
+      if(q.includes('fee') || q.includes('payment') || q.includes('easypaisa')) return AI_ANSWERS.fee;
+      if(q.includes('admission') || q.includes('enroll') || q.includes('join')) return AI_ANSWERS.admission;
+      if(q.includes('time') || q.includes('schedule') || q.includes('class')) return AI_ANSWERS.timing;
+      if(q.includes('program') || q.includes('course') || q.includes('hifz') || q.includes('tafs')) return AI_ANSWERS.program;
+      if(q.includes('tajweed') || q.includes('ikhfa') || q.includes('makharij') || q.includes('idgham')) return AI_ANSWERS.tajweed;
+      return AI_ANSWERS.default;
+    }
+
+    function sendAiQuestion(){
+      const input = document.getElementById('hadiyahInput');
+      const val = input.value.trim();
+      if(!val) return;
+      const answer = answerAi(val);
+      input.value = '';
+      input.placeholder = 'Sister Hadiyah is reviewing your question…';
+      setTimeout(()=>{
+        input.placeholder = 'Ask Sister Hadiyah any curriculum question...';
+        showToast(answer);
+      },450);
+    }
+
+    function openAiModal(){ document.getElementById('aiModal').classList.remove('hidden'); }
+    function openAdmissionModal(){ document.getElementById('admissionModal').classList.remove('hidden'); }
+    function openSlipModal(){ document.getElementById('slipModal').classList.remove('hidden'); }
+    function openAnnouncementModal(){ document.getElementById('announcementModal').classList.remove('hidden'); }
+    function closeModal(id){ document.getElementById(id).classList.add('hidden'); }
+    function closeOnBackdrop(event,id){ if(event.target.id===id) closeModal(id); }
+
+    function aiModalPrompt(text){
+      document.getElementById('aiModalInput').value = text;
+      sendAiModalQuestion();
+    }
+
+    function sendAiModalQuestion(){
+      const input = document.getElementById('aiModalInput');
+      const val = input.value.trim();
+      if(!val) return;
+      const box = document.getElementById('aiModalMessages');
+      box.insertAdjacentHTML('beforeend', '<div class="ai-message user">'+escapeHtml(val)+'</div>');
+      box.insertAdjacentHTML('beforeend', '<div class="ai-message">'+escapeHtml(answerAi(val))+'</div>');
+      input.value = '';
+      box.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+    }
+
+    function submitAdmission(){
+      const name = document.getElementById('admissionName').value.trim();
+      const phone = document.getElementById('admissionPhone').value.trim();
+      const file = document.getElementById('admissionFile').files[0];
+      if(!name || !phone){
+        showToast('Please enter your name and WhatsApp number.');
+        return;
+      }
+      closeModal('admissionModal');
+      showToast(file ? 'Admission details + fee slip received in demo.' : 'Admission form received in demo.');
+      document.getElementById('admissionName').value = '';
+      document.getElementById('admissionPhone').value = '';
+      document.getElementById('admissionFile').value = '';
+    }
+
+    function toggleCampaign(input){
+      state.campaign = input.checked;
+      showToast(state.campaign ? 'Ramadan 20% discount re-activated.' : 'Standard tuition rates restored.');
+    }
+
+    function updateFee(btn){
+      const input = btn.previousElementSibling;
+      const name = input.dataset.fee;
+      showToast(`${name} fee updated to ${input.value ? 'PKR ' + input.value : 'custom value'}.`);
+    }
+
+    function filterStudents(){
+      const q = document.getElementById('studentSearch').value.toLowerCase().trim();
+      document.querySelectorAll('#studentList .student-row').forEach(row=>{
+        row.style.display = (!q || row.dataset.search.includes(q)) ? '' : 'none';
+      });
+    }
+
+    function studentAction(action){
+      showToast('Student action applied: ' + action + '. Connect this button to your real student database.');
+    }
+
+    function approveApplicant(){
+      showToast('Applicant approved in demo. Student credential generation should be handled by your backend.');
+    }
+
+    function rejectApplicant(){
+      showToast('Applicant rejected in demo.');
+    }
+
+    function broadcastAnnouncement(){
+      const val = document.getElementById('announcementText').value.trim();
+      if(!val){showToast('Write an announcement first.');return;}
+      closeModal('announcementModal');
+      document.getElementById('announcementText').value = '';
+      showToast('Announcement broadcast in demo.');
+    }
+
+    function authorizeDevice(){
+      const key = document.getElementById('masterKey').value.trim();
+      if(!key){showToast('Enter a Super Admin Security Key.');return;}
+      showToast('Device authorized in demo only. Use real server-side auth for production.');
+      document.getElementById('masterKey').value='';
+    }
+
+    function focusGlobalSearch(){
+      if(state.page!=='admin') goPage('admin');
+      setTimeout(()=>document.getElementById('studentSearch')?.focus(),50);
+    }
+
+    window.addEventListener('keydown',(e)=>{
+      if(e.key==='Escape'){
+        ['aiModal','admissionModal','slipModal','announcementModal'].forEach(closeModal);
+      }
+    });
+
+    updateUserUI();
+  </script>
+</body>
+</html>
